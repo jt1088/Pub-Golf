@@ -12,6 +12,7 @@
                     <li class="active"><a href="${g.createLink (uri: '/')}">Home</a></li>
                     <li><a href=<g:createLink mapping="rules"/>>Pub Golf Rules</a></li>
                     <li><a href=<g:createLink mapping="scoring"/>>Scoring</a></li>
+                    <li><a href=<g:createLink uri="/about"/>>About</a></li>
                     <li><a href="http://www.runningforbrews.com">Running for Brews</a></li>
                     %{--<li class="dropdown">--}%
                     %{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>--}%

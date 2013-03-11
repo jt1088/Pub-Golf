@@ -15,6 +15,9 @@
 
 <body>
 <div data-role="header">
+    <a data-role="button" href="${g.createLink(action: "teams", id: team.event.id)}" data-icon="star"  data-ajax="false"
+       data-iconpos="left"
+       class="ui-btn-left">Score Board</a>
     <h1>Pub Golf</h1>
 </div><!-- /header -->
 

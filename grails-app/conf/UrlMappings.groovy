@@ -11,6 +11,7 @@ class UrlMappings {
         name scoring: "/scoring" {view = "/scoring" }
 
 		"/"(view:"/index")
+        "/about" view: "/about"
 		"500"(view:'/error')
 	}
 }
