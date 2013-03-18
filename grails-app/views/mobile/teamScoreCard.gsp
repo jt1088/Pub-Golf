@@ -16,7 +16,7 @@
 
 <div data-role="content">
     <ul data-role="listview">
-        <g:each in="${team.player1ScoreCard.holes}" var="p1Hole">
+        <g:each in="${team?.player1ScoreCard?.holes}" var="p1Hole">
             <li data-role="list-divider">${p1Hole.eventHole.holeNumber} - ${p1Hole.eventHole.pub.name}</li>
             <li>
                 <h3>${p1Hole.scoreCard.user.firstName} ${p1Hole.scoreCard.user.lastName}</h3>

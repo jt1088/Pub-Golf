@@ -10,6 +10,8 @@
 <div data-role="page" id="availTeams">
     <div data-role="header">
         <h1>Find a Team</h1>
+        <a data-role="button" href="#addTeam" data-icon="plus" data-iconpos="left"  data-ajax="false"
+           class="ui-btn-left">Add Team</a>
     </div><!-- /header -->
 
     <div data-role="content">

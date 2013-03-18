@@ -19,6 +19,7 @@
 
     <div data-role="header">
         <h1>Pub Golf</h1>
+        <a href="#createAccount" data-role="button" data-icon="plus" data-ajax="false">Create New Account</a>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -45,6 +46,7 @@
 
     <div data-role="header">
         <h1>Pub Golf</h1>
+        <a href="#login" data-role="button" data-icon="plus">Login</a>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -56,7 +58,7 @@
             <input name="lastName" id="lastName" value="" type="text">
 
             <label id="userNameLbl" for="userNameId">User Name:</label>
-            <input name="userName" id="userNameId" value="" type="text">
+            <input name="userName" id="userNameId" value="" type="text" autocorrect="off" autocapitalize="off">
 
             <label id="passwordLbl" for="passwordId">Password:</label>
             <input name="password" id="passwordId" value="" type="password">

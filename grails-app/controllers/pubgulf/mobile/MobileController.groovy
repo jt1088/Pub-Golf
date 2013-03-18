@@ -60,15 +60,10 @@ class MobileController {
 
         def user = (User) springSecurityService.currentUser
 
-        println 'user....'
-        println user?.dump()
-
         //get team
         def team = event.teams.find {
             it.player1 == user || it.player2 == user
         }
-
-        println team?.dump()
 
         //get score cards
         def player1ScoreCard = ScoreCard.findByEventAndUser(event, team?.player1)
@@ -97,9 +92,6 @@ class MobileController {
             userScoreCard = player2ScoreCard
             partnerScoreCard = player1ScoreCard
         }
-
-        println 'User Score Card'
-        println userScoreCard?.dump()
 
         def teamScoreCard = []
 
@@ -133,8 +125,6 @@ class MobileController {
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def holeScore() {
         def user = (User) springSecurityService.currentUser
-        println params.id
-        println params.id.dump()
 
         def holeScore = HoleScore.get(params.id)
         def bunkerString = 'No'
@@ -155,8 +145,6 @@ class MobileController {
             holeScore.score = 0
         }
         holeScore.save(failOnError: true)
-
-        println 'ASAVED =============='
 
         redirect(action: 'course', id: holeScore.eventHole.event.id)
     }
@@ -202,9 +190,6 @@ class MobileController {
         def availTeams = []
 
         teams.each {
-//            if (it.player1.id != user.id && it.player2?.id != user.id && (it.player1 == null || it.player2 == null)) {
-//                availTeams << it
-//            }
             if (it.player1 == null || it.player2 == null) {
                 availTeams << it
             }
@@ -224,6 +209,19 @@ class MobileController {
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
+    def joinTeam(){
+        def user = (User) springSecurityService.currentUser
+        def team = EventTeam.get(params.id)
+
+        team.player2 = user
+
+        team.save(flush: true, failOnError: true)
+
+        redirect(action: 'course', id: team.event.id)
+    }
+
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def teams() {
         def event = Event.get(params.id)
 
@@ -233,6 +231,16 @@ class MobileController {
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def teamScoreCard() {
         def team = EventTeam.get(params.id)
+
+        if(!team.player1ScoreCard){
+            buildScoreCard(team.event, team.player1)
+        }
+
+        if(!team.player2ScoreCard){
+            buildScoreCard(team.event, team.player2)
+        }
+
+        println(team.player2ScoreCard.dump())
 
         [team: team]
     }
