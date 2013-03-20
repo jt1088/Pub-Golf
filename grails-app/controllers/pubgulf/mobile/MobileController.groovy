@@ -141,6 +141,11 @@ class MobileController {
 
         try {
             holeScore.score = params?.score?.toInteger() ?: 0
+
+            // don't allow neg values
+            if (holeScore.score < 0){
+                holeScore.score = 0
+            }
         } catch (e) {
             holeScore.score = 0
         }
