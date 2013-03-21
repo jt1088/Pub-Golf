@@ -1,11 +1,14 @@
 package pubgulf.course
 
-import pubgulf.AbstractDomainClass
 
-class Event extends AbstractDomainClass{
+
+class Event {
 
     String name
     Date eventDate
+
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         name nullable: false

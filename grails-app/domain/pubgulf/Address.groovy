@@ -1,6 +1,6 @@
 package pubgulf
 
-class Address extends AbstractDomainClass{
+class Address {
     String address1
     String address2
     String city
@@ -9,6 +9,9 @@ class Address extends AbstractDomainClass{
     String country
     String latitude
     String longitude
+
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         address1(blank: false, maxLength: 60)

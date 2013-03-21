@@ -1,9 +1,11 @@
 package pubgulf
 
-class Pub extends AbstractDomainClass {
+class Pub  {
 
     String name
     Address address
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         name nullable: false

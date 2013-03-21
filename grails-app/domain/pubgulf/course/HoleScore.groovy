@@ -1,12 +1,14 @@
 package pubgulf.course
 
-import pubgulf.AbstractDomainClass
 
-class HoleScore extends AbstractDomainClass{
+class HoleScore {
 
     EventHole eventHole
     Integer score = 0
     Integer holeNumber
+
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
 

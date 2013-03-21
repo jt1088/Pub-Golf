@@ -1,12 +1,14 @@
 package pubgulf.course
 
-import pubgulf.AbstractDomainClass
 import pubgulf.user.User
 
-class ScoreCard extends AbstractDomainClass{
+class ScoreCard {
 
     User user
     Event event
+
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
     }

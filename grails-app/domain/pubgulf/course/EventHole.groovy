@@ -12,6 +12,9 @@ class EventHole {
     Boolean hasWaterHazard = false
     Boolean hasBunker = false
 
+    Date dateCreated
+    Date lastUpdated
+
     static constraints = {
         holeNumber nullable: false
         pub nullable: false

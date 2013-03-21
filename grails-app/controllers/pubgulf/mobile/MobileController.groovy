@@ -1,5 +1,6 @@
 package pubgulf.mobile
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import pubgulf.course.Event
@@ -155,14 +156,28 @@ class MobileController {
     }
 
     def createAccount() {
-        userService.createUser(params)
-
-        def config = SpringSecurityUtils.securityConfig
-        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
-        redirect(controller: '/', action: postUrl,
-                params: ['j_username': params.userName, 'j_password': params.password])
-
-        //redirect(action: 'events')
+        try{
+            userService.createUser(params)
+            def config = SpringSecurityUtils.securityConfig
+            String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+            redirect(controller: '/', action: postUrl,
+                    params: ['j_username': params.userName, 'j_password': params.password])
+        } catch(Exception e){
+            println('in catch')
+            println(e.message)
+            println(e.dump())
+            if(e.undeclaredThrowable.message == 'User Exists'){
+                response.status = 409
+                def jsonMap = [success: false]
+                render jsonMap  as JSON
+               // render view: 'index'
+            } else {
+                println('tossing e')
+                println(e.message)
+                throw e
+            }
+        }
+        //render [success: false] as JSON
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
@@ -244,8 +259,6 @@ class MobileController {
         if(!team.player2ScoreCard){
             buildScoreCard(team.event, team.player2)
         }
-
-        println(team.player2ScoreCard.dump())
 
         [team: team]
     }

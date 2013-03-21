@@ -7,10 +7,12 @@ package pubgulf
  * Time: 9:04 PM
  * To change this template use File | Settings | File Templates.
  */
-class State extends AbstractDomainClass{
+class State {
 
     String stateCode
     String stateName
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         stateName(blank:false, nullable:false)

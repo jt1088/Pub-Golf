@@ -185,6 +185,26 @@ class BootStrap {
         def address9 = new Address(address1: '100 4th Street South', city: 'St Petersburg',
                 state: State.findByStateCode('FL'), zip: '33701').save(failOnError: true)
         new Pub(name: 'World of Beer', address: address9).save(failOnError: true)
+
+        def address10 = new Address(address1: '169 1st Ave N Street', city: 'St Petersburg',
+                state: State.findByStateCode('FL'), zip: '33701').save(failOnError: true)
+        new Pub(name: '''Mike's Pub''', address: address10).save(failOnError: true)
+
+        def address11 = new Address(address1: '421 4th Ave N', city: 'St Petersburg',
+                state: State.findByStateCode('FL'), zip: '33701').save(failOnError: true)
+        new Pub(name: 'Tap Room at the Hollander', address: address11).save(failOnError: true)
+
+        def address12 = new Address(address1: '226 1st Ave N', city: 'St Petersburg',
+                state: State.findByStateCode('FL'), zip: '33701').save(failOnError: true)
+        new Pub(name: 'The Kitchen', address: address12).save(failOnError: true)
+
+        def address13 = new Address(address1: '2924 5th Ave', city: 'St Petersburg',
+                state: State.findByStateCode('FL'), zip: '33701').save(failOnError: true)
+        new Pub(name: 'Crums Bar & Grill', address: address13).save(failOnError: true)
+
+        def address14 = new Address(address1: '2501 Central Ave', city: 'St Petersburg',
+                state: State.findByStateCode('FL'), zip: '33701').save(failOnError: true)
+        new Pub(name: 'The Queen’s Head', address: address14).save(failOnError: true, flush: true)
     }
 
     def loadEvents() {
@@ -214,7 +234,7 @@ class BootStrap {
             new EventHole(event: event1, pub: pubs.get(it), holeNumber: it + 1, par: 3,
                     description: pubs.get(it).name, hasBunker: bunker, hasWaterHazard: water).save(failOnError: true)
             new EventHole(event: event2, pub: pubs.get(it), holeNumber: it + 1, par: 3,
-                    description: pubs.get(it).name, hasBunker: bunker, hasWaterHazard: water).save(failOnError: true)
+                    description: pubs.get(it).name, hasBunker: bunker, hasWaterHazard: water).save(failOnError: true, flush: true)
         }
 
         //create teams
@@ -236,7 +256,7 @@ class BootStrap {
                 event: event1, player1: user3)).save(failOnError: true)
 
         def team5 = event2.addToTeams(new EventTeam(teamName: "Just Phil",
-                event: event1, player1: user4)).save(failOnError: true)
+                event: event1, player1: user4)).save(failOnError: true, flush: true)
 
     }
 }

@@ -1,14 +1,16 @@
 package pubgulf.course
 
-import pubgulf.AbstractDomainClass
+
 import pubgulf.user.User
 
-class EventTeam extends AbstractDomainClass {
+class EventTeam {
 
     Event event
     String teamName
     User player1
     User player2
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         teamName nullable: false

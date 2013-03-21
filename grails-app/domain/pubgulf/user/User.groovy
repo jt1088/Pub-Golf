@@ -13,6 +13,9 @@ class User {
     boolean accountLocked
     boolean passwordExpired
 
+    Date dateCreated
+    Date lastUpdated
+
     static constraints = {
         username blank: false, unique: true
         firstName nullable: true

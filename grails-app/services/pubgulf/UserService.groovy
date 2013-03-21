@@ -10,7 +10,7 @@ class UserService {
 
     def createUser(def params) {
 
-        def user = User.findByUsername(params.userName)
+        def user = User.findByUsername(params.userName.toString())
 
         if(user){
             throw new Exception('User Exists')
@@ -19,9 +19,6 @@ class UserService {
             passwd: params.password, enabled: true).save(failOnError: true)
 
             def userRole = UserRole.create(user, Role.findByAuthority('ROLE_USER'), true)
-
-            //log user into app
-            //springSecurityService.reauthenticate(user.username, user.passwd )
         }
 
     }
