@@ -79,6 +79,22 @@
 						
 					</g:if>
 				
+					<g:if test="${eventInstance?.isActive}">
+						<dt><g:message code="event.isActive.label" default="Is Active" /></dt>
+						
+							<dd><g:formatBoolean boolean="${eventInstance?.isActive}" /></dd>
+						
+					</g:if>
+				
+					<g:if test="${eventInstance?.teams}">
+						<dt><g:message code="event.teams.label" default="Teams" /></dt>
+						
+							<g:each in="${eventInstance.teams}" var="t">
+							<dd><g:link controller="eventTeam" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></dd>
+							</g:each>
+						
+					</g:if>
+				
 				</dl>
 
 				<g:form>

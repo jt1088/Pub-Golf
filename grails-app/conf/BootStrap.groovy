@@ -29,6 +29,7 @@ class BootStrap {
         if (Event.count() == 0) {
             loadEvents()
         }
+
     }
     def destroy = {
     }
@@ -207,11 +208,15 @@ class BootStrap {
         new Pub(name: 'The Queen’s Head', address: address14).save(failOnError: true, flush: true)
     }
 
+
     def loadEvents() {
 
         def event1 = new Event(name: "JT's Test Pub Crawl", eventDate: new Date()).save(failOnError: true)
 
         def event2 = new Event(name: "Sandra's Short Skirt Golfers Pub Crawl", eventDate: new Date()).save(failOnError: true)
+
+        def event3 = new Event(name: "Test Inactive Event", eventDate: new Date(), isActive: false).save(failOnError: true)
+
 
         def pubs = Pub.list()
 
@@ -235,6 +240,8 @@ class BootStrap {
                     description: pubs.get(it).name, hasBunker: bunker, hasWaterHazard: water).save(failOnError: true)
             new EventHole(event: event2, pub: pubs.get(it), holeNumber: it + 1, par: 3,
                     description: pubs.get(it).name, hasBunker: bunker, hasWaterHazard: water).save(failOnError: true, flush: true)
+            new EventHole(event: event3, pub: pubs.get(it), holeNumber: it + 1, par: 3,
+                    description: pubs.get(it).name, hasBunker: bunker, hasWaterHazard: water).save(failOnError: true, flush: true)
         }
 
         //create teams
@@ -247,16 +254,19 @@ class BootStrap {
                 event: event1, player1: user1, player2: user2)).save(failOnError: true)
 
         def team2 = event2.addToTeams(new EventTeam(teamName: "Just Jack",
-                event: event1, player1: user1)).save(failOnError: true)
+                event: event2, player1: user1)).save(failOnError: true)
 
         def team3 = event2.addToTeams(new EventTeam(teamName: "Just Tiger",
-                event: event1, player1: user2)).save(failOnError: true)
+                event: event2, player1: user2)).save(failOnError: true)
 
         def team4 = event2.addToTeams(new EventTeam(teamName: "Just John",
-                event: event1, player1: user3)).save(failOnError: true)
+                event: event2, player1: user3)).save(failOnError: true)
 
         def team5 = event2.addToTeams(new EventTeam(teamName: "Just Phil",
-                event: event1, player1: user4)).save(failOnError: true, flush: true)
+                event: event2, player1: user4)).save(failOnError: true, flush: true)
+
+        def team6 = event2.addToTeams(new EventTeam(teamName: "Inactive team",
+                event: event3, player1: user4)).save(failOnError: true, flush: true)
 
     }
 }

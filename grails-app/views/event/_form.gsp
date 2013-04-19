@@ -35,3 +35,28 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: eventInstance, field: 'isActive', 'error')} ">
+	<label for="isActive">
+		<g:message code="event.isActive.label" default="Is Active" />
+		
+	</label>
+	<g:checkBox name="isActive" value="${eventInstance?.isActive}" />
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: eventInstance, field: 'teams', 'error')} ">
+	<label for="teams">
+		<g:message code="event.teams.label" default="Teams" />
+		
+	</label>
+	
+<ul class="one-to-many">
+<g:each in="${eventInstance?.teams?}" var="t">
+    <li><g:link controller="eventTeam" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></li>
+</g:each>
+<li class="add">
+<g:link controller="eventTeam" action="create" params="['event.id': eventInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'eventTeam.label', default: 'EventTeam')])}</g:link>
+</li>
+</ul>
+
+</div>
+

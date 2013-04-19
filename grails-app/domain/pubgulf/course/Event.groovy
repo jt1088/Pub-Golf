@@ -6,6 +6,7 @@ class Event {
 
     String name
     Date eventDate
+    Boolean isActive = true
 
     Date dateCreated
     Date lastUpdated

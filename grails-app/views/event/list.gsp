@@ -52,6 +52,8 @@
 						
 							<g:sortableColumn property="dateCreated" title="${message(code: 'event.dateCreated.label', default: 'Date Created')}" />
 						
+							<g:sortableColumn property="isActive" title="${message(code: 'event.isActive.label', default: 'Is Active')}" />
+						
 							<th></th>
 						</tr>
 					</thead>
@@ -66,6 +68,8 @@
 							<td><g:formatDate date="${eventInstance.lastUpdated}" /></td>
 						
 							<td><g:formatDate date="${eventInstance.dateCreated}" /></td>
+						
+							<td><g:formatBoolean boolean="${eventInstance.isActive}" /></td>
 						
 							<td class="link">
 								<g:link action="show" id="${eventInstance.id}" class="btn btn-small">Show &raquo;</g:link>

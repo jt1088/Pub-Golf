@@ -44,11 +44,12 @@ class MobileController {
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def events() {
 
-        def events = Event.list()
+        def events = Event.findAllByIsActive(true)
 
         if (events.size() == 1) {
+            def event = events.get(0)
             //skip if nothing to select
-            redirect(action: 'availableTeams')
+            redirect(action: 'availableTeams',  id:  event.id)
         }
 
         [events: Event.list()]
@@ -163,7 +164,8 @@ class MobileController {
             redirect(controller: '/', action: postUrl,
                     params: ['j_username': params.userName, 'j_password': params.password])
         } catch(Exception e){
-            println('in catch')
+            println('in catch..')
+            println params.dump()
             println(e.message)
             println(e.dump())
             if(e.undeclaredThrowable.message == 'User Exists'){
@@ -184,25 +186,29 @@ class MobileController {
     def availableTeams() {
         def user = (User) springSecurityService.currentUser
 
-        def userTeam = EventTeam.findByEventAndPlayer1(Event.get(params.id), user)
+        String idString = params.id
+
+        def id = idString.replace('[', '').replace(']', '').toLong()
+
+        def userTeam = EventTeam.findByEventAndPlayer1(Event.get(id), user)
 
         if (!userTeam) {
-            userTeam = EventTeam.findByEventAndPlayer2(Event.get(params.id), user)
+            userTeam = EventTeam.findByEventAndPlayer2(Event.get(id), user)
         }
 
         if (!userTeam) { //user not on team
 
         } else {
             // user on team for event
-            redirect(action: 'course', id: params.id)
+            redirect(action: 'course', id: id)
         }
 
-        def teams = EventTeam.findAllByEvent(Event.get(params.id))
+        def teams = EventTeam.findAllByEvent(Event.get(id))
 
         def availTeams = getAvailTeams(teams)
 
 
-        return [teams: availTeams, event: Event.get(params.id)]
+        return [teams: availTeams, event: Event.get(id)]
     }
 
     private getAvailTeams(List<EventTeam> teams) {
@@ -219,7 +225,12 @@ class MobileController {
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
-    def addTeam() {
+    def addTeam(){
+        return [event: Event.get(params.id)]
+    }
+
+    @Secured(['ROLE_ADMIN', 'ROLE_USER'])
+    def addTeamSave() {
 
         def user = (User) springSecurityService.currentUser
         def event = Event.get(params.eventId)
